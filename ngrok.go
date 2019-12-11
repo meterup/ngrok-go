@@ -21,17 +21,18 @@ import (
 	"strings"
 
 	"github.com/kevinburke/rest"
-	"github.com/meterup/api/src/version"
 )
 
 var defaultUserAgent string
 
 const BaseURL = "https://api.ngrok.com"
 
+const Version = "0.1"
+
 func init() {
 	gv := strings.Replace(runtime.Version(), "go", "", 1)
-	defaultUserAgent = fmt.Sprintf("ngrok-go/%s go/%s (%s/%s)",
-		version.Version, gv, runtime.GOOS, runtime.GOARCH)
+	defaultUserAgent = fmt.Sprintf("ngrok-go/%s go/%s (%s/%s)", Version, gv,
+		runtime.GOOS, runtime.GOARCH)
 }
 
 type Client struct {
