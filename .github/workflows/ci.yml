@@ -1,0 +1,21 @@
+name: ngrok-go
+on: [push]
+jobs:
+  build:
+    name: Test suite
+    runs-on: ubuntu-latest
+    container: meterup/ubuntu-golang
+    steps:
+    - uses: actions/checkout@master
+      with:
+         path: './src/github.com/meterup/ngrok-go'
+    # staticcheck needs this for GOPATH
+    - run: echo "::set-env name=GOPATH::$GITHUB_WORKSPACE"
+    - run: echo "::set-env name=PATH::$GITHUB_WORKSPACE/bin:$PATH"
+    - run: go get -v honnef.co/go/tools/cmd/staticcheck
+    - run: go get -v ./...
+      working-directory: ./src/github.com/meterup/ngrok-go
+    - run: make lint
+      working-directory: ./src/github.com/meterup/ngrok-go
+    - run: make test
+      working-directory: ./src/github.com/meterup/ngrok-go
