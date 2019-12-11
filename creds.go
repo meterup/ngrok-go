@@ -24,6 +24,7 @@ type Cred struct {
 
 const credPathPart = "/credentials"
 
+// Create a new Credential. https://ngrok.com/docs/ngrok-link#create-credential
 func (c *CredService) Create(ctx context.Context, data url.Values) (*Cred, error) {
 	cred := new(Cred)
 	err := c.client.CreateResource(ctx, credPathPart, data, cred)
