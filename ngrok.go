@@ -21,6 +21,7 @@ import (
 	"strings"
 
 	"github.com/kevinburke/rest"
+	"github.com/kevinburke/rest/restclient"
 )
 
 var defaultUserAgent string
@@ -47,7 +48,7 @@ type Client struct {
 const accept = "application/json"
 
 func New(baseURL string, token string) *Client {
-	restclient := rest.NewClient("", "", baseURL)
+	restclient := restclient.New("", "", baseURL)
 	restclient.ErrorParser = errorParser
 	c := &Client{
 		Client:    restclient,
