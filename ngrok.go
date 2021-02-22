@@ -100,8 +100,8 @@ func errorParser(resp *http.Response) error {
 
 // NewRequest creates a new signed request. The base URL will be prepended to
 // the path, and the user-agent will also be attached.
-func (c *Client) NewRequest(method, path string, body io.Reader) (*http.Request, error) {
-	req, err := http.NewRequest(method, c.Client.Base+path, body)
+func (c *Client) NewRequest(ctx context.Context, method, path string, body io.Reader) (*http.Request, error) {
+	req, err := http.NewRequestWithContext(ctx, method, c.Client.Base+path, body)
 	if err != nil {
 		return nil, err
 	}
@@ -165,7 +165,7 @@ func (c *Client) MakeRequest(ctx context.Context, method string, pathPart string
 	if method == "GET" && data != nil {
 		pathPart = pathPart + "?" + data.Encode()
 	}
-	req, err := c.NewRequest(method, pathPart, rb)
+	req, err := c.NewRequest(ctx, method, pathPart, rb)
 	if err != nil {
 		return err
 	}
