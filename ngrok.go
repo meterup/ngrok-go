@@ -169,6 +169,5 @@ func (c *Client) MakeRequest(ctx context.Context, method string, pathPart string
 	if err != nil {
 		return err
 	}
-	req = req.WithContext(ctx)
 	return c.Do(req, &v)
 }
